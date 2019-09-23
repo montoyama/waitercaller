@@ -114,8 +114,10 @@ def account_deletetable():
 
 @app.route("/newrequest/<tid>")
 def new_request(tid):
-  DB.add_request(tid, datetime.datetime.now())
-  return "Your request has been logged and a waiter will be withyou shortly"
+        if DB.add_request(tid, datetime.datetime.now()):
+            return "Su solicitud ha sido registrada y un camarero estará con usted en breve."
+        return "Ya hay una solicitud pendiente para esta tabla. Por favor sea paciente, un camarero estará allí lo antes posible"
+
 
 @app.route("/dashboard/resolve")
 @login_required
